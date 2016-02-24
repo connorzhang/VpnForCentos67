@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# Author:  yeho <lj2007331 AT gmail.com>
-# Blog:  http://blog.linuxeye.com
+# Author:  Monster <18610599620 AT 163.com>
+# Blog:  http://www.shaobin.wang
 #
-# Installs a PPTP VPN-only system for CentOS
+# Installs a PPTP VPN-only system for CentOS6、7
 
 # Check if user is root
 [ $(id -u) != "0" ] && { echo -e "\033[31mError: You must be root to run this script\033[0m"; exit 1; } 
@@ -14,7 +14,7 @@ printf "
 #######################################################################
 #    LNMP/LAMP/LANMP for CentOS/RadHat 5+ Debian 6+ and Ubuntu 12+    #
 #            Installs a PPTP VPN-only system for CentOS               #
-# For more information please visit http://blog.linuxeye.com/31.html  #
+# For more information please visit http://www.shaobin.wang           #
 #######################################################################
 "
 
@@ -22,8 +22,8 @@ printf "
 
 VPN_IP=`curl ipv4.icanhazip.com`
 
-VPN_USER="linuxeye"
-VPN_PASS="linuxeye"
+VPN_USER="MonsterWang"
+VPN_PASS="MonsterWang"
 
 VPN_LOCAL="192.168.0.150"
 VPN_REMOTE="192.168.0.151-200"
@@ -79,16 +79,11 @@ fi
 
 echo "1" > /proc/sys/net/ipv4/ip_forward
 
-echo -e 'nameserver 223.5.5.5\n' >> /etc/resolv.conf
-echo -e 'nameserver 223.6.6.6\n' >> /etc/resolv.conf
-echo -e 'nameserver 114.114.114.114\n' >> /etc/resolv.conf
-echo -e 'nameserver 114.114.115.115\n' >> /etc/resolv.conf
-echo -e 'nameserver 8.8.4.4\n' >> /etc/resolv.conf
-echo -e 'nameserver 8.8.8.8\n' >> /etc/resolv.conf
-echo -e 'nameserver 209.244.0.3\n' >> /etc/resolv.conf
-echo -e 'nameserver 209.244.0.4\n' >> /etc/resolv.conf
-echo -e 'nameserver 208.67.220.220\n' >> /etc/resolv.conf
-echo -e 'nameserver 208.67.222.222\n' >> /etc/resolv.conf
+echo 'nameserver 223.5.5.5' >> /etc/resolv.conf
+echo 'nameserver 114.114.114.114' >> /etc/resolv.conf
+echo 'nameserver 8.8.8.8' >> /etc/resolv.conf
+echo 'nameserver 209.244.0.3' >> /etc/resolv.conf
+echo 'nameserver 208.67.222.222' >> /etc/resolv.conf
 
 /etc/init.d/network restart
 
@@ -99,15 +94,10 @@ sysctl -p /etc/sysctl.conf
 
 if [ -z "`grep '^ms-dns' /etc/ppp/options.pptpd`" ];then
   echo "ms-dns 223.5.5.5" >> /etc/ppp/options.pptpd # Aliyun DNS Primary
-  echo "ms-dns 223.6.6.6" >> /etc/ppp/options.pptpd # Aliyun DNS Primary
   echo "ms-dns 114.114.114.114" >> /etc/ppp/options.pptpd # 114 DNS Primary
-  echo "ms-dns 114.114.115.115" >> /etc/ppp/options.pptpd # 114 DNS Primary
-  echo "ms-dns 8.8.4.4" >> /etc/ppp/options.pptpd # Google DNS Primary
-	echo "ms-dns 8.8.8.8" >> /etc/ppp/options.pptpd # Google DNS Primary
-	echo "ms-dns 209.244.0.3" >> /etc/ppp/options.pptpd # Level3 Primary
-	echo "ms-dns 209.244.0.4" >> /etc/ppp/options.pptpd # Level3 Primary
-	echo "ms-dns 208.67.220.220" >> /etc/ppp/options.pptpd # OpenDNS Primary
-	echo "ms-dns 208.67.222.222" >> /etc/ppp/options.pptpd # OpenDNS Primary
+  echo "ms-dns 8.8.8.8" >> /etc/ppp/options.pptpd # Google DNS Primary
+  echo "ms-dns 209.244.0.3" >> /etc/ppp/options.pptpd # Level3 Primary
+  echo "ms-dns 208.67.222.222" >> /etc/ppp/options.pptpd # OpenDNS Primary
 fi
 
 echo "$VPN_USER pptpd $VPN_PASS *" >> /etc/ppp/chap-secrets
