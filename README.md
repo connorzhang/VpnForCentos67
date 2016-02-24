@@ -7,3 +7,5 @@ yum -y install git
 cd /root && git clone https://github.com/MonsterWang/VpnForCentos67.git
 cd /root/VpnForCentos67/ && bash vpn_centos67.sh
 ```
+##Statement
+This script by other scripts to modify,The original script address is <a href="https://github.com/drewsymo/VPN" target="_blank">https://github.com/drewsymo/VPN</a>
